@@ -1,0 +1,90 @@
+name: 🚀 Saga Deploy to GitHub Pages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v6
+
+      - name: 🐦 Set up Swift
+        uses: swift-actions/setup-swift@v3
+        with:
+          swift-version: "6.3.1"
+          skip-verify-signature: true
+
+      - name: 📦 Cache apt packages
+        id: cache-apt
+        uses: actions/cache@v5
+        with:
+          path: ~/apt-cache
+          key: apt-webkit-${{ runner.os }}-${{ hashFiles('/var/lib/dpkg/status') }}
+          restore-keys: |
+            apt-webkit-${{ runner.os }}-
+
+      - name: 🔧 Install system dependencies
+        run: |
+          mkdir -p ~/apt-cache
+          sudo apt-get update -q
+          sudo apt-get install -y --no-install-recommends \
+            -o dir::cache::archives="$HOME/apt-cache" \
+            libwebkit2gtk-4.1-dev
+
+      - name: 📦 Cache Saga CLI binary
+        id: cache-saga
+        uses: actions/cache@v5
+        with:
+          path: /usr/local/bin/saga
+          key: saga-cli-${{ runner.os }}-v1.0.0
+          restore-keys: |
+            saga-cli-${{ runner.os }}-
+
+      - name: 📦 Cache Swift build artifacts
+        uses: actions/cache@v5
+        with:
+          path: |
+            .build
+            saga-cli/.build
+          key: swift-build-${{ runner.os }}-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            swift-build-${{ runner.os }}-
+
+      - name: 🔨 Build and install Saga CLI
+        if: steps.cache-saga.outputs.cache-hit != 'true'
+        run: |
+          rm -rf saga-cli
+          git clone https://github.com/loopwerk/saga-cli.git
+          cd saga-cli
+          swift build -c release
+          sudo cp .build/release/saga /usr/local/bin/saga
+
+      - name: 🏗️ Build site
+        run: saga build
+
+      - name: ⚙️ Configure GitHub Pages
+        uses: actions/configure-pages@v6
+
+      - name: 📤 Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: deploy
+
+      - name: 🌐 Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
