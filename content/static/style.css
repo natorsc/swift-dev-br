@@ -11,6 +11,7 @@
     --link-hover: #004499;
     --tag-bg: #f1f5f9;
     --tag-hover: #e2e8f0;
+    --hr-color: rgba(0, 0, 0, 0.75);
     /*  */
     --accent: #7c3aed;
     --accent-hover: #6d28d9;
@@ -38,6 +39,7 @@
         --tag-bg: #1e293b;
         --tag-hover: #334155;
         --code-inline-bg: #1e293b;
+        --hr-color: rgba(255, 255, 255, 0.5);
         /*  */
         --accent: #8b5cf6;
         --accent-hover: #a78bfa;
@@ -72,6 +74,17 @@ body {
         background-color 0.3s ease,
         color 0.3s ease;
     -webkit-font-smoothing: antialiased;
+}
+
+hr.gradient {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(
+        to right,
+        transparent,
+        var(--hr-color),
+        transparent
+    );
 }
 
 /* ==========================================================================
@@ -302,6 +315,126 @@ header nav {
 .article-card h2 {
     margin: 0 0 8px;
     border: none;
+}
+
+/* ==========================================================================
+   8. IMAGES
+   ========================================================================== */
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 2rem auto;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+/* Hover suave */
+img:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Melhor alinhamento dentro do conteúdo */
+article img,
+.page img {
+    width: 100%;
+}
+
+/* Legendas opcionais */
+figure {
+    margin: 2rem 0;
+}
+
+figcaption {
+    margin-top: 0.75rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   9. TABLES
+   ========================================================================== */
+
+table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+
+    border-collapse: collapse;
+    margin: 2rem 0;
+
+    border-radius: 14px;
+    border: 1px solid var(--border);
+
+    background: var(--bg);
+    font-size: 0.95rem;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Scrollbar horizontal */
+table::-webkit-scrollbar {
+    height: 8px;
+}
+
+table::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 999px;
+}
+
+/* Cabeçalho */
+thead {
+    background: var(--accent);
+    color: #fff;
+}
+
+thead th {
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+/* Células */
+th,
+td {
+    padding: 14px 18px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+}
+
+/* Zebra rows */
+tbody tr:nth-child(even) {
+    background: var(--tag-bg);
+}
+
+/* Hover suave */
+tbody tr:hover {
+    background: var(--accent-soft);
+    transition: background 0.2s ease;
+}
+
+/* Última linha */
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+    table {
+        font-size: 0.88rem;
+    }
+
+    th,
+    td {
+        padding: 12px 14px;
+    }
 }
 
 footer {

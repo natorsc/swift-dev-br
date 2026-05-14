@@ -24,4 +24,8 @@ try await Saga(input: "content", output: "deploy")
         readers: [.parsleyMarkdownReader],
         writers: [.itemWriter(swim(renderPage))]
     )
+    .createPage(
+        "sitemap.xml",
+        using: Saga.sitemap(baseURL: URL(string: "https://swift.dev.br")!),
+    )
     .run()
