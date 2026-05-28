@@ -23,6 +23,9 @@ func baseHtml(title pageTitle: String, @NodeBuilder children: () -> NodeConverti
                     a(class: "site-title", href: "/") { "Swift Dev BR" }
                     div(class: "nav-links") {
                         a(href: "/articles/") { "Artigos" }
+                        a(href: "https://github.com/natorsc/swift-dev-br", target: "_blank") {
+                            "GitHub"
+                        }
                     }
                 }
             }
