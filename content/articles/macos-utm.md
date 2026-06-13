@@ -110,15 +110,11 @@ Em um novo Mac (ou após uma formatação):
 
 Para ambientes profissionais de desenvolvimento, adote esta estratégia para mitigar qualquer risco de perda de dados:
 
-| Cópia | Localização | Descrição |
-| --- | --- | --- |
-| **1. Principal** | Armazenamento de Trabalho | SSD interno ou externo de uso diário.
-|
-| **2. Local** | Mídia Física Secundária | Outro HD externo ou storage local.
-|
-| **3. Nuvem** | Off-site (Fora do escritório)
-| iCloud, Google Drive ou OneDrive.
-|
+| Cópia            | Localização                   | Descrição                                                                  |
+| ---------------- | ----------------------------- | -------------------------------------------------------------------------- |
+| **1. Principal** | Armazenamento de trabalho     | SSD interno ou SSD externo utilizado diariamente.                          |
+| **2. Local**     | Mídia física secundária       | Outro HD externo, SSD ou armazenamento local para backup.                  |
+| **3. Nuvem**     | Off-site (fora do escritório) | iCloud, Google Drive, OneDrive ou outro serviço de armazenamento em nuvem. |
 
 ## Portabilidade
 
