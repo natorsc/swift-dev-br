@@ -34,7 +34,7 @@ func baseHtml(title pageTitle: String, @NodeBuilder children: () -> NodeConverti
             }
             footer {
                 p {
-                    "Built with "
+                    "2026 Renato Cruz (natorsc) Built with "
                     a(href: "https://github.com/loopwerk/Saga") { "Saga" }
                 }
             }
